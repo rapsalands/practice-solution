@@ -4,7 +4,7 @@ import MultiImageCarousal from './solutions/multiImageCarousal';
 function App() {
   return (
     <div className="App">
-      <MultiImageCarousal />
+      <MultiImageCarousal timeLag={2000} sources={["A", "B", "C", "D"]} />
     </div>
   );
 }
