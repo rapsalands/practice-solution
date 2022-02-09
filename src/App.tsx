@@ -11,15 +11,15 @@ function App() {
     <div className="App">
       <ArrayAsTable source={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]} />
       <hr />
-      {/* <Stack /> */}
+      <Stack />
       <hr />
-      {/* <FileTree /> */}
+      <FileTree />
       <hr />
-      {/* <RatingApp /> */}
+      <RatingApp />
       <hr />
-      {/* <SingleImageCarousal sources={["A", "B", "C", "D"]} /> */}
+      <SingleImageCarousal sources={["A", "B", "C", "D"]} />
       <hr />
-      {/* <MultiImageCarousal timeLag={2000} sources={["A", "B", "C", "D"]} /> */}
+      <MultiImageCarousal timeLag={2000} sources={["A", "B", "C", "D"]} />
     </div>
   );
 }

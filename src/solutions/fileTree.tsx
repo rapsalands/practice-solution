@@ -27,7 +27,14 @@ const sampleSource: IFileNode[] = [
                 name: "Plug-in Source",
                 children: [
                     { name: 'PluginFile1.txt' },
-                    { name: 'PluginFile2.txt' }
+                    { name: 'PluginFile2.txt' },
+                    {
+                        name: 'PluginFile3.txt',
+                        children: [
+                            { name: 'PluginSource1.txt' },
+                            { name: 'PluginSource2.txt' },
+                        ]
+                    }
                 ]
             }
         ]
@@ -35,34 +42,30 @@ const sampleSource: IFileNode[] = [
     { name: 'File4.txt' },
 ];
 
+const defaultTabSpace = 15;
+
 const FileTree: React.FC<Props> = ({ source = sampleSource, ...props }) => {
 
     return (
         <React.Fragment>
-            <label><u><b>File Tree</b></u></label>
-            <br />
-            {<FileTreeIterator source={source} />}
+            <div><u><b>FILE TREE</b></u></div>
+
+            <FileTreeIterator source={source} tab={0} />
         </React.Fragment>
     );
 }
 
-const FileTreeIterator: React.FC<IFileTreeIteratorProps> = ({ source = sampleSource, tab = 0, ...props }) => {
-
-    const tabSpace = 20;
-
-    const getIcon = (fileNode: IFileNode) => !!fileNode.children ? '[Folder]' : '[File]';
+const FileTreeIterator: React.FC<FileTreeIteratorProps> = ({ source, tab = 1 }) => {
 
     return (
         <React.Fragment>
             {
-                source.map(fileNode => {
+                source.map(fn => {
                     return (
-                        <React.Fragment key={fileNode.name}>
-                            <div style={{ textAlign: 'left', paddingLeft: `${tab * tabSpace}px` }}>
-                                {getIcon(fileNode)}{fileNode.name}
-                            </div>
-                            {fileNode.children ? <FileTreeIterator source={fileNode.children} tab={tab + 1} /> : null}
-                        </React.Fragment>
+                        <div style={{ textAlign: 'left', paddingLeft: `${tab}px` }}>
+                            {fn.name}
+                            {!!fn.children ? <FileTreeIterator tab={defaultTabSpace} source={fn.children} /> : null}
+                        </div>
                     );
                 })
             }
@@ -70,15 +73,15 @@ const FileTreeIterator: React.FC<IFileTreeIteratorProps> = ({ source = sampleSou
     );
 }
 
+interface FileTreeIteratorProps {
+    source: IFileNode[],
+    tab: number
+}
+
 export default FileTree;
 
 interface Props {
-    source?: IFileNode[],
-}
-
-interface IFileTreeIteratorProps {
-    source: IFileNode[],
-    tab?: number
+    source?: IFileNode[]
 }
 
 interface IFileNode {
