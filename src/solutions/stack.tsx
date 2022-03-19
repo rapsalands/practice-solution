@@ -3,6 +3,8 @@ import React from 'react';
 const StackContainer: React.FC<Props> = ({ ...props }) => {
 
     const [stack, setStack] = React.useState<Stack>(new Stack());
+    const [numStack, setNumStack] = React.useState<StackGeneric<number>>(new StackGeneric());
+    const [strStack, setStrStack] = React.useState<StackGeneric<string>>(new StackGeneric());
 
     return (
         <React.Fragment>
@@ -49,6 +51,31 @@ export class Stack {
     }
 
     pop = (): number => {
+        const value = this.list.pop();
+        if (value == undefined) throw new Error("Stack is empty");
+        return value;
+    }
+
+    isEmpty = () => !this.list.length;
+
+    hasAny = () => !this.isEmpty();
+
+    length = () => this.list.length;
+}
+
+export class StackGeneric<T> {
+
+    readonly list: T[];
+
+    constructor() {
+        this.list = [];
+    }
+
+    push = (value: T) => {
+        this.list.push(value);
+    }
+
+    pop = (): T => {
         const value = this.list.pop();
         if (value == undefined) throw new Error("Stack is empty");
         return value;
