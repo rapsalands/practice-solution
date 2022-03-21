@@ -1,10 +1,10 @@
 import './App.css';
-import ArrayAsTable from './solutions/arrayAsTable';
-import FileTree from './solutions/fileTree';
-import MultiImageCarousal from './solutions/multiImageCarousal';
-import RatingApp from './solutions/ratingApp';
-import SingleImageCarousal from './solutions/singleImageCarousal';
-import Stack from './solutions/stack';
+import ArrayAsTable from './reactSolutions/arrayAsTable';
+import FileTree from './reactSolutions/fileTree';
+import MultiImageCarousal from './reactSolutions/multiImageCarousal';
+import RatingApp from './reactSolutions/ratingApp';
+import SingleImageCarousal from './reactSolutions/singleImageCarousal';
+import Stack from './reactSolutions/stack';
 
 function App() {
   return (
