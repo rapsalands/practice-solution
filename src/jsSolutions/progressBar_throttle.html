@@ -1,0 +1,92 @@
+<html>
+
+<head>
+    <style>
+        .progress {
+            height: 20px;
+            width: 200px;
+            margin: 10px 0px;
+            border: 2px grey solid;
+            border-radius: 5px;
+        }
+
+        .bar {
+            height: 20px;
+            width: 0px;
+            background-color: orange;
+        }
+
+        .loading {
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+            animation-name: progress;
+        }
+
+        @keyframes progress {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Progress Bar</h1>
+    <button onclick="btnAddBar()">Add Bar</button>
+    <div id="container">
+    </div>
+</body>
+<script>
+
+    const q = [];
+    let alreadyRunning = false;
+    const maxAllowedRun = 3;
+
+    function btnAddBar() {
+        const container = document.getElementById('container');
+        const newNode = createNewProgressBar();
+        container.append(newNode);
+        q.push(newNode);
+        startBar();
+    }
+
+    function startBar() {
+        if (alreadyRunning) return;
+
+        alreadyRunning = q.length >= maxAllowedRun;
+        processQueue();
+    }
+
+    function processQueue() {
+        const node = document.querySelector('.bar:not(.loading)');
+        node.classList.add('loading');
+    }
+
+    function onAnimatationEnd() { // Can be replaced with timeout.
+        q.shift();
+        alreadyRunning = q.length >= maxAllowedRun;
+        if (q.length >= maxAllowedRun) {
+            processQueue();
+        }
+    }
+
+    function createNewProgressBar() {
+        const pdiv = document.createElement('div');
+        pdiv.classList.add('progress');
+        const bdiv = document.createElement('div');
+        bdiv.classList.add('bar');
+        bdiv.onanimationend = onAnimatationEnd;
+        pdiv.append(bdiv);
+        return pdiv;
+    }
+</script>
+
+</html>
+
+<!-- 
+    Mostly CSS will given to you. But better remember few things as onanimationend event is dependent on this.
+ -->
