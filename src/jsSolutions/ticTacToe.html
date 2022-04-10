@@ -1,0 +1,112 @@
+<html>
+
+<head>
+    <style>
+        .button {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Tic Tac Toe</h1>
+    <label id="player"></label>
+    <button onclick="newGame()">New Game</button>
+    <table>
+        <tr>
+            <td><button class="button" onclick="onClick(event)(0, 0)"></button></td>
+            <td><button class="button" onclick="onClick(event)(0, 1)"></button></td>
+            <td><button class="button" onclick="onClick(event)(0, 2)"></button></td>
+        </tr>
+        <tr>
+            <td><button class="button" onclick="onClick(event)(1, 0)"></button></td>
+            <td><button class="button" onclick="onClick(event)(1, 1)"></button></td>
+            <td><button class="button" onclick="onClick(event)(1, 2)"></button></td>
+        </tr>
+        <tr>
+            <td><button class="button" onclick="onClick(event)(2, 0)"></button></td>
+            <td><button class="button" onclick="onClick(event)(2, 1)"></button></td>
+            <td><button class="button" onclick="onClick(event)(2, 2)"></button></td>
+        </tr>
+    </table>
+</body>
+<script>
+
+    const count = 3;
+    let moves = [], rows = [], cols = [];
+    let dir = 1, l2r = 0, r2l = 0, gameOver = false;
+
+    function onClick(event) {
+        return (x, y) => {
+            if (gameOver) return;
+            if (event.target.innerText !== '') return;
+
+            const index = (x * count) + y;
+            moves[index] = dir;
+            event.target.innerText = dir === 1 ? 'O' : 'X';
+            dir *= -1;
+
+            setPlayer();
+            calculateWinner(x, y);
+        }
+    }
+
+    function calculateWinner(row, col) {
+
+        const index = (row * count) + col, move = moves[index];
+
+        rows[row] = rows[row] || 0;
+        rows[row] += move;
+        if (rows[row] === count || rows[row] === -count) setWinner(rows[row]);
+
+        cols[col] = cols[col] || 0;
+        cols[col] += move;
+        if (cols[col] === count || cols[col] === -count) setWinner(cols[col]);
+
+        if (row == col) l2r += move;
+        if (l2r === count || l2r === -count) setWinner(l2r);
+
+        if ((row + col) === (count - 1)) r2l += move;
+        if (r2l === count || r2l === -count) setWinner(r2l);
+
+        if (!gameOver && moves.filter(n => !!n).length === (count * count)) {
+            setDraw();
+        }
+    }
+
+    function setWinner(sum) {
+        document.getElementById('player').innerText = `Player ${sum > 0 ? 1 : 2} won.`;
+        gameOver = true;
+    }
+
+    function setPlayer() {
+        document.getElementById('player').innerText = `Player ${dir === 1 ? 1 : 2} chance`;
+    }
+
+    function setDraw() {
+        document.getElementById('player').innerText = `Match drawn.`;
+        gameOver = true;
+    }
+
+    function newGame() {
+        moves = [];
+        rows = [];
+        cols = [];
+        gameOver = false;
+        const nodes = document.querySelectorAll('.button');
+        nodes.forEach(node => node.innerText = '');
+        dir = 1;
+        l2r = r2l = 0;
+        setPlayer();
+    }
+
+    function main() {
+        setPlayer();
+    }
+
+    main();
+
+</script>
+
+</html>
