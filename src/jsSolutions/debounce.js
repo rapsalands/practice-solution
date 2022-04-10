@@ -35,3 +35,9 @@ const obj = {
 };
 
 obj.func();
+
+/**
+ * THROTTLE: Throtlle immedietly runs the first call and then skip all other calls until wait is over.
+ * 
+ * DEBOUNCE: Debounce waits and never executes untill incoming calls ends. Basically, it runs the last call.
+ */
