@@ -1,11 +1,11 @@
 import React from 'react';
 
-const RatingApp: React.FC<Props> = ({ maxRating = 5, ...props }) => {
+const RatingApp: React.FC<Props> = ({ maxRating = 5, seedRating = 0, ...props }) => {
 
     const hoverStyle = { "backgroundColor": "yellow" };
     const normalStyle = { "backgroundColor": "transparent" };
 
-    const [currentRating, setCurrentRating] = React.useState<number>(0);
+    const [currentRating, setCurrentRating] = React.useState<number>(seedRating);
     const [hoverRating, setHoverRating] = React.useState<number>(0);
 
     const range = [...Array(maxRating)].map((_, i) => i);
@@ -13,7 +13,7 @@ const RatingApp: React.FC<Props> = ({ maxRating = 5, ...props }) => {
     const ratingClick = (value: number) => setCurrentRating(value);
     const mouseOver = (value: number) => setHoverRating(value);
     const mouseLeave = () => setHoverRating(0);
-    const visibleRating = (hoverRating == 0) ? currentRating : hoverRating;;
+    const visibleRating = (hoverRating == 0) ? currentRating : hoverRating;
 
     function getStyle(value: number) {
         return visibleRating >= value ? hoverStyle : normalStyle;
@@ -40,5 +40,6 @@ const RatingApp: React.FC<Props> = ({ maxRating = 5, ...props }) => {
 export default RatingApp;
 
 interface Props {
-    maxRating?: number
+    maxRating?: number,
+    seedRating?: number
 }

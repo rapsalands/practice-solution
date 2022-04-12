@@ -19,10 +19,12 @@ function App() {
       <FileTree />
       <hr />
       <RatingApp />
+      <br />
+      <RatingApp seedRating={8} maxRating={10} />
       <hr />
       <SingleImageCarousal sources={["A", "B", "C", "D"]} />
       <hr />
-      <MultiImageCarousal timeLag={2000} sources={["A", "B", "C", "D"]} />
+      <MultiImageCarousal timeLag={2000} sources={Array(10).fill(null).map((_, index) => `${index}`)} />
     </div>
   );
 }

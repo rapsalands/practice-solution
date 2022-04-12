@@ -31,14 +31,14 @@ const MultiImageCarousal: React.FC<Props> = ({ timeLag = 1000, sources, imageCou
     function changeImage(e: any, dir: number) {
         setCounter(prevCounter => {
             const sum = prevCounter + dir;
-            if (sum < 0) return imageCount;
-            if (sum > imageCount) return 0;
+            if (sum < 0) return sources.length - 1;
+            if (sum > sources.length) return 0;
             return sum;
         });
     }
 
     function calculateSource(index: number) {
-        return sources[(index + sources.length) % sources.length];
+        return sources[index % sources.length];
     }
 
     const pauseClick = (e: any) => setPause(!pause);

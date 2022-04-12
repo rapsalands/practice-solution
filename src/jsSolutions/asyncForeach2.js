@@ -1,15 +1,14 @@
-function filterMap (callback) {
-    const result = [];
+Array.prototype.asyncForEach = function (callback) {
 
-    for (let i = 0; i < this.length; i++) {
-        const el = this[i];
-        result.push(callback(el));
+    let index = 0, len = this.length;
+
+    const next = () => {
+        if (index == len) return;
+        callback(this[index++], next);
     }
 
-    return result;
+    next();
 }
-
-Array.prototype.customMap = filterMap;
 
 const sampleInput = [
     {
@@ -44,10 +43,10 @@ const sampleInput = [
     },
 ];
 
-function main() {
-    let ids = sampleInput.map(si => si.id);
-    let names = sampleInput.customMap((si) => si.name);
-    console.log(names.join('-'));
-}
-
-main();
+sampleInput.asyncForEach((si, next) => {
+    const time = Math.floor(Math.random() * 500);
+    setTimeout(() => {
+        console.log(si.id);
+        next();
+    }, time);
+});

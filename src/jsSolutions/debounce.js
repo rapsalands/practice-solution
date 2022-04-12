@@ -7,6 +7,7 @@ function debounce(func, wait = 1000) {
         clearTimeout(timeout);
         timeout = setTimeout(() => {
             func.apply(this, args);
+            if(timeout) clearTimeout(timeout);
         }, wait);
     }
 }
@@ -21,20 +22,20 @@ function countName() {
 
 console.log("Started.");
 
-const debounceCount = debounce(count, 1000);
+const debounceCount = debounce(count, 0);
 debounceCount(10);
 debounceCount(20);
 debounceCount(30);
 debounceCount(40);
 debounceCount(50);
-setTimeout(() => debounceCount(60), 1000);
+setTimeout(() => debounceCount(60), 0);
 
-const obj = {
-    name: 'hello',
-    func: debounce(countName)
-};
+// const obj = {
+//     name: 'hello',
+//     func: debounce(countName)
+// };
 
-obj.func();
+// obj.func();
 
 /**
  * THROTTLE: Throtlle immedietly runs the first call and then skip all other calls until wait is over.

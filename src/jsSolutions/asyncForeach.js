@@ -1,3 +1,10 @@
+/** This handles scenario when each element in array is 
+ * processed with delay. Example: every element in array is passed to setTimeout. This is not really a real-time scenario method.
+ * 
+ * See asyncForEach2 for scenario where each item is API call
+ * and is resolved with some delay.
+ */
+
 function asyncForEach(callback) {
 
     const len = this.length;
